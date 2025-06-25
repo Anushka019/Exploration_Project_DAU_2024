@@ -38,21 +38,20 @@ To assist orthopedic surgeons in TKR procedures by:
 - ✅ Configuration with JSON  
   Easily map markers to models and adjust settings like scale, orientation, and texture in config.json.
 
-- ✅ High-Resolution 3D Rendering  
-  STL bone models rendered interactively using PyVista with texture mapping and dynamic camera positioning.
-
 - ✅ Multithreaded Video Processing  
   Separates frame capture from processing to ensure low-latency, real-time performance.
+  
+- ✅ High-Resolution 3D Rendering  
+  STL bone models rendered interactively using PyVista with texture mapping and dynamic camera positioning.
 
 ---
 
 ## 🧠 Technologies Used
 
-- Languages: Python  
+- Languages: Python
 - Libraries: OpenCV, ArUco, PyVista, NumPy, pandas, JSON  
 - Visualization: STL, real-time PyVista plotter  
-- Tools: JSON-configurable pipeline, Excel export (via pandas)  
-- Real-time threading: threading, cv2.VideoCapture
+- Tools: JSON-configurable pipeline, Excel export (via pandas)
 
 ---
 
@@ -144,7 +143,7 @@ pip install opencv-python numpy pyvista pandas openpyxl
 ## Sample Output
 
 - ✅ Bone model rotates and moves with real-world marker.  
-- ✅ Textured cuboids follow marker IDs.  
+- ✅ Textured cuboids(virtual ArUco marker model) follow marker IDs.  
 - ✅ Red dot (pivot) appears offset from Marker 1's diagonal.  
 - ✅ Distance between markers is printed and saved.
 
