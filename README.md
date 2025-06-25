@@ -104,10 +104,10 @@ pip install opencv-python numpy pyvista pandas openpyxl
 ## How to Run
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/TKR_3D_Tracker.git  
+   git clone https://github.com/Anushka019/Exploration_Project_DAU_2024 
    cd TKR_3D_Tracker
 
-2. (Optional) Calibrate your camera:
+2. Calibrate your camera:
    python cameraCalibration.py
 
 3. Start the system:
