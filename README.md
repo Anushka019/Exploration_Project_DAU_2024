@@ -148,7 +148,7 @@ pip install opencv-python numpy pyvista pandas openpyxl
 - ✅ Distance between markers is printed and saved.
 
   ### 📸 Screenshot
-![Sample Screenshot](TrackingAndVisualizing/images/img.png)
+![Sample Screenshot](TrackingAndVisualization/Output_Images/img3.jpg)
 
 ---
 
