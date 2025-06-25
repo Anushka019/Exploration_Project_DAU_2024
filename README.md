@@ -147,6 +147,9 @@ pip install opencv-python numpy pyvista pandas openpyxl
 - ✅ Red dot (pivot) appears offset from Marker 1's diagonal.  
 - ✅ Distance between markers is printed and saved.
 
+  ### 📸 Screenshot
+![Sample Screenshot](TrackingAndVisualizing/images/img.png)
+
 ---
 
 ## ✅ Applications
