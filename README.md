@@ -1,52 +1,158 @@
-# Exploration_Project_DAU_2024
+# 🦴 TKR 3D Tracking and Visualization System
 
 ## Overview
-**Exploration_Project_DAU_2024** implements **real-time ArUco marker detection** to control **3D model movement** based on marker motion. It combines **OpenCV** for marker detection and **PyVista** for 3D visualization.
 
-## Features
-- **Real-Time Marker Detection** - Tracks ArUco markers using a webcam.
-- **3D Model Control** - Manipulates 3D objects in response to marker movements.
-- **Camera Calibration** - Ensures precise pose estimation using pre-calibrated camera parameters.
-- **Interactive 3D Visualization** - Displays the motion and transformation of 3D models.
-- **Multiple Object Support** - Controls multiple 3D models mapped to unique markers.
+This project implements a real-time ArUco marker-based 3D tracking and visualization system tailored for use in **Total Knee Replacement (TKR)** surgeries. It uses **OpenCV** for camera calibration and marker detection, and **PyVista** for real-time rendering and pose tracking of anatomical bone models.
 
-### Key Files:
-1. **markerNBone.py** - Main code handling camera setup, marker detection, and 3D model rendering.
-2. **cameraCalibration.py** - Script for calibrating the camera and generating calibration data.
-3. **aruco_marker.png** - Pre-generated ArUco marker image.
-4. **cameraMatrix.pkl & dist.pkl** - Calibration data files for camera matrix and distortion coefficients.
-5. **config.json** - Configuration settings for the project.
-6. **Femur.stl** - A 3D model file. 
-7. **interactivePyramidModel.py** - Similar to markerNBone.py but it uses a built-in 3D pyramid model, eliminating the need for external STL files.
-   
+By detecting spatial movement of physical markers, it synchronizes and aligns corresponding STL-format 3D models in the virtual space, enabling accurate intraoperative feedback.
+
+---
+
+## 🎯 Purpose
+
+To assist orthopedic surgeons in TKR procedures by:
+- Precisely tracking surgical tools or bones using ArUco markers.
+- Visualizing STL-based anatomical models in real-time.
+- Measuring relative distances and positions between key landmarks.
+- Providing an easily configurable system using JSON and calibration inputs.
+
+---
+
+## Key Features
+
+- ✅ Real-Time ArUco Marker Tracking  
+  Detects multiple markers using a live webcam feed with accurate pose estimation.
+
+- ✅ 3D Model Alignment and Control  
+  Maps each marker to a corresponding 3D model (e.g., bone or implant), ensuring alignment between physical movement and digital visualization.
+
+- ✅ Pivot Point Projection  
+  Projects a pivot offset point (e.g., 5 cm along a diagonal) for a given marker, aiding in identifying anatomical reference points during surgery.
+
+- ✅ Distance Measurement Between Markers  
+  Computes and logs real-time 3D distances between markers (e.g., femur and tibia alignment in TKR).
+
+- ✅ Camera Calibration Integration  
+  Uses intrinsic parameters (cameraMatrix.pkl, dist.pkl) to correct distortion and improve tracking accuracy.
+
+- ✅ Configuration with JSON  
+  Easily map markers to models and adjust settings like scale, orientation, and texture in config.json.
+
+- ✅ High-Resolution 3D Rendering  
+  STL bone models rendered interactively using PyVista with texture mapping and dynamic camera positioning.
+
+- ✅ Multithreaded Video Processing  
+  Separates frame capture from processing to ensure low-latency, real-time performance.
+
+---
+
+## 🧠 Technologies Used
+
+- Languages: Python  
+- Libraries: OpenCV, ArUco, PyVista, NumPy, pandas, JSON  
+- Visualization: STL, real-time PyVista plotter  
+- Tools: JSON-configurable pipeline, Excel export (via pandas)  
+- Real-time threading: threading, cv2.VideoCapture
+
+---
+
+## 📁 File Structure
+
+| File                        | Description                                                     |
+|-----------------------------|-----------------------------------------------------------------|
+| markerNBone.py              | Main script for marker detection, pose estimation, STL alignment |
+| cameraCalibration.py        | Generates camera calibration files                              |
+| config.json                 | Stores marker-to-model mappings and transformation parameters   |
+| Femur.stl                   | Example 3D bone model used for testing                          |
+| marker_distances.xlsx       | Automatically generated distance logs between markers           |
+| aruco_marker.png            | ArUco marker image used in real-world tracking                  |
+| cameraMatrix.pkl, dist.pkl  | Camera calibration matrices                                     |
+| interactivePyramidModel.py  | Alternate visualization with procedural geometry (no STL)       |
+
+---
+
+## ⚙️ Configuration
+
+Calibration must be completed using cameraCalibration.py if no cameraMatrix.pkl and dist.pkl are available.  
+Marker-model relationships and display parameters (e.g., marker size, window size, plotter config) are defined in config.json.
+
+Example JSON structure:
+
+{
+  "marker_model_map": {
+    "0": "cuboid_model_1",
+    "1": "cuboid_model_2"
+  },
+  "models": {
+    "bone_model": {
+      "file": "Femur.stl",
+      "scale_factor": 1.0
+    }
+  }
+}
+
+---
+
 ## Dependencies
-Ensure the following libraries are installed:
-```bash
-pip install opencv-python
-pip install numpy
-pip install pyvista
-```
+
+Install the required libraries using pip:
+
+pip install opencv-python numpy pyvista pandas openpyxl
+
+---
 
 ## How to Run
+
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/Exploration_Project_DAU_2024.git
-```
-2. Navigate to the project folder:
-```bash
-cd Exploration_Project_DAU_2024/ExplorationProject
-```
-3. Run the main script:
-```bash
-python markerNBone.py
-```
-4. Press **'q'** to exit the visualization.
+   git clone https://github.com/yourusername/TKR_3D_Tracker.git  
+   cd TKR_3D_Tracker
 
-## Configuration
-- Camera calibration data should be generated using **cameraCalibration.py** if not already available.
-- Update **config.json** if any parameter tuning is required.
+2. (Optional) Calibrate your camera:
+   python cameraCalibration.py
 
-## Demonstration
-1. Place the **aruco_marker.png** in front of the webcam.
-2. Observe real-time transformation of the associated 3D model.
-3. Test with different markers to control multiple objects.
+3. Start the system:
+   python markerNBone.py
+
+4. Interact:
+   - Hold the printed ArUco marker in front of the camera.
+   - Watch the corresponding STL bone model move in real time.
+   - Press q to quit.
+   - Press d to display and freeze a pivot point in the scene.
+
+---
+
+## Live Feedback & Output
+
+- Distance logs between Marker 0 and Marker 1 are saved in:
+  marker_distances.xlsx
+
+- These logs include:
+  - 3D position differences (x, y, z)
+  - Euclidean distance (in cm)
+
+---
+
+## Demonstration Workflow
+
+1. Display Marker 0 and Marker 1 in front of your camera.  
+2. Observe STL models moving and aligning in the 3D viewer.  
+3. Pivot Point will be projected (if enabled) for Marker 1.  
+4. Excel log of relative position and distance between the markers is continuously updated.
+
+---
+
+## Sample Output
+
+- ✅ Bone model rotates and moves with real-world marker.  
+- ✅ Textured cuboids follow marker IDs.  
+- ✅ Red dot (pivot) appears offset from Marker 1's diagonal.  
+- ✅ Distance between markers is printed and saved.
+
+---
+
+## ✅ Applications
+
+- Pre-operative planning for TKR  
+- Surgical tool alignment  
+- Training systems for orthopedic procedures  
+- Marker-based augmented reality in medical visualization
